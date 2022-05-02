@@ -1,0 +1,39 @@
+# define a imagem base 
+
+FROM node:16  
+
+# executa comandos do terminal 
+
+RUN apt-get update
+
+# variaveis de ambiente
+
+ENV PORT=3000
+
+# qual porta do container vai ser visivle por host
+
+EXPOSE 3000
+
+# pasta raiz do app
+
+WORKDIR /app
+
+# o que vais er copiado para o container no diretorio atual => .
+
+COPY ["package.json","yarn.lock"] .
+
+# rode:
+
+RUN yarn 
+
+# copia os arquivos da pasta atual para o container
+
+COPY . .
+
+# define o user do ubuntu
+
+USER node
+
+# inicia a aplciacao
+
+CMD ["yarn","start"]
